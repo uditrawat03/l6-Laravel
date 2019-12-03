@@ -11,15 +11,15 @@ use Illuminate\Support\Str;
 class UserController extends Controller
 {
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
+        $username = $request->credentials['username'];
+        $password = $request->credentials['password'];
 
-        $username = $request->username;
-        $password = $request->password;
-
-        if(Auth::attempt(['email' => $username, 'password' => $password])){
+        if (Auth::attempt(['email' => $username, 'password' => $password])) {
             $user = Auth::user();
-            $response = response()->json(['token' => $user->createToken(env('CREATE_TOKEN'))->accessToken]);
-        }else{
+            $response = response()->json(["user" => ['token' => $user->createToken(env('CREATE_TOKEN'))->accessToken]]);
+        } else {
             $response = response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -27,7 +27,8 @@ class UserController extends Controller
     }
 
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
@@ -35,7 +36,7 @@ class UserController extends Controller
             'confirm_password' => 'required|same:password'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
 
@@ -45,12 +46,12 @@ class UserController extends Controller
 
         $user = User::create($data);
 
-        return response()->json(['token' => $user->createToken(env('CREATE_TOKEN'))->accessToken]);
-
+        return response()->json(["user" => ['token' => $user->createToken(env('CREATE_TOKEN'))->accessToken]]);
     }
 
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         $request->user()->token()->revoke();
         $request->user()->token()->delete();
 
