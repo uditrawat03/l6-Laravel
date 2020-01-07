@@ -17,12 +17,20 @@ class CompanyController extends Controller
         $this->company = $company;
     }
 
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         return $this->company->getAll($request);
     }
 
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         return $this->company->create($request);
+    }
+
+
+    public function detail($id)
+    {
+        return $this->company->detail($id);
     }
 }

@@ -3,6 +3,7 @@
 
 Route::match(['get', 'post'], '/', 'CompanyController@index')->name('company.index');
 Route::post('/store', 'CompanyController@store')->name('company.store');
+Route::get('/detail/{id}', 'CompanyController@detail')->name('company.detail');
 
 
 Route::get('/company-source', '\App\Http\Controllers\MasterController@companySource');

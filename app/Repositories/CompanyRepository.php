@@ -33,4 +33,10 @@ class CompanyRepository
 
         return $company;
     }
+
+
+    public function detail($id)
+    {
+        return $this->company->query()->where('id', $id)->first();
+    }
 }
