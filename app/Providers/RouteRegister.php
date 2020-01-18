@@ -16,6 +16,7 @@ class RouteRegister
         $this->mapApiRoutes();
         $this->mapCompanyApiRoutes();
         $this->mapMasterApiRoutes();
+        $this->mapProjectApiRoutes();
 
         // Web Routes
         $this->mapWebRoutes();
@@ -52,5 +53,13 @@ class RouteRegister
             ->prefix('api/crm/companies')
             ->namespace($this->namespace . '\Crm')
             ->group(base_path('routes/api/crm/company.php'));
+    }
+
+    protected function mapProjectApiRoutes()
+    {
+        Route::middleware('api')
+            ->prefix('api/projects')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/project.php'));
     }
 }

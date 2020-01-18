@@ -5,6 +5,9 @@ namespace App\Repositories;
 use App\Services\CompanyClassService;
 use App\Services\CompanyImportanceService;
 use App\Services\CompanySourceService;
+use App\Services\UserService;
+use App\Services\TaskTypeService;
+use App\Services\TaskPriorityService;
 use Illuminate\Support\Str;
 
 class ListingMasterRepository
@@ -40,5 +43,18 @@ class ListingMasterRepository
     public function companyImportance(CompanyImportanceService $companyImportanceService)
     {
         return $companyImportanceService->get();
+    }
+
+    public function users(UserService $userService){
+        return $userService->get();
+    }
+
+    public function taskType(TaskTypeService $taskTypeService){
+        return $taskTypeService->get();
+    }
+
+
+    public function taskPriority(TaskPriorityService $taskPriorityService){
+        return $taskPriorityService->get();
     }
 }

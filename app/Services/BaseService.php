@@ -37,6 +37,11 @@ class BaseService
     }
 
 
+    public function updateById($id, $data)
+    {
+        return $this->model->where('id', $id)->update($data);
+    }
+
     public function query()
     {
         return $this->model->query();

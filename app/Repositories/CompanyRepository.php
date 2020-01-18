@@ -20,18 +20,20 @@ class CompanyRepository
     {
 
         $limit = $request->limit ?: 10;
-        return $this->company->query()->paginate($limit);
+        return $this->company->query()->orderBy('id', 'DESC')->paginate($limit);
     }
 
     public function create(Request $request)
     {
-        $company =  $this->company->create([
-            // 'uuid' => (string) Str::uuid(),
-            'name' => $request->name,
-            'code' => strtoupper(uniqid("OR"))
-        ]);
-
-        return $company;
+        try{
+            $params = $request->data;
+            $params['code'] = strtoupper(uniqid("OR"));
+            $company =  $this->company->create($params);
+            return response()->json(['message' => 'Record added successfully'], 200);
+        }catch(Exception $e){
+            return response()->json(['error' => 'Somthing went wrong'], 401);
+        }
+        
     }
 
 

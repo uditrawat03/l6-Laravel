@@ -18,7 +18,6 @@ class  ModuleController extends Controller{
     public function create(){
         
         try{
-
             $name = request('name');
             $this->module->create($name);
             $response = response()->json(['msg' => $name . " module created"], 200 );
