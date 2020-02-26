@@ -12,4 +12,10 @@ class Project extends Model
     public function members(){
         return $this->belongsToMany('\App\Models\User', 'project_members', 'project_id', 'user_id');
     }
+
+
+    /**Project workflow */
+    public function workflows(){
+        return $this->hasMany('\App\Models\ProjectWorkflow');
+    }
 }

@@ -1,21 +1,20 @@
 <?php
 namespace App\Repositories;
 
-use App\Services\ProjectService;
+use App\Services\ProjectWorkflowService;
+use App\Http\Resources\ProjectWorkflowListResrouce;
 use Illuminate\Http\Request;
-use App\Http\Resources\ProjectListResrouce;
 
-class ProjectRepository {
+class ProjectWorkflowRepository {
 
-    public function __construct(ProjectService $project){
+    public function __construct(ProjectWorkflowService $project){
         $this->project = $project;
     }
 
 
-    public function getAll(Request $request)
+    public function getAll($projectId, Request $request)
     {
-        $projects = $this->project->query()->orderBy('id', 'DESC')->get();
-        return ProjectListResrouce::collection($projects);
+        return ProjectWorkflowListResrouce::collection($this->project->getWorkflowByProjectId($projectId));
     }
 
 
